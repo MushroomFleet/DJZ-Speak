@@ -1,16 +1,18 @@
 # DJZ-Speak v0: Robotic Text-to-Speech Tool
 
-DJZ-Speak is a high-performance command-line text-to-speech tool that leverages eSpeak-NG's formant synthesis engine to generate authentic machine-like robotic voices. The tool is optimized for speed while maintaining the characteristic mechanical sound of vintage computer speech systems.
+DJZ-Speak is a high-performance command-line text-to-speech tool that leverages eSpeak-NG's formant synthesis engine to generate authentic machine-like robotic voices. The tool automatically saves all synthesized audio to an organized output directory while providing real-time playback, making it perfect for creating robotic voice content, accessibility applications, and vintage computer sound effects.
 
 ## Features
 
 - **8 Distinct Robotic Voice Presets**: Classic Robot, DECtalk Style, Dr. Sbaitso, HAL 9000, C-3PO Style, Vintage Computer, Modern AI, and Robotic Female
+- **Automatic Output Management**: All audio automatically saved to `./output/` directory with timestamped filenames
 - **Real-Time Synthesis**: RTF < 0.5 for responsive speech generation
 - **Interactive Mode**: Real-time parameter adjustment and voice switching
-- **Batch Processing**: Process multiple texts efficiently
+- **Batch Processing**: Process multiple texts efficiently with organized file output
 - **Audio Effects**: Robotic enhancement filters and mechanical artifacts
 - **Cross-Platform**: Windows, Linux, and macOS support
 - **Multiple Output Formats**: WAV and MP3 support
+- **Smart Filename Generation**: Automatic timestamped naming based on input text
 
 ## Installation
 
@@ -55,18 +57,36 @@ pip install -e .
 ### Basic Usage
 
 ```bash
-# Simple text synthesis
+# Simple text synthesis (automatically saves to ./output/ + plays audio)
 python main.py "Hello, I am a robot"
+# Creates: ./output/djz_speak_Hello_I_20250702_203045.wav
 
 # Use a specific voice preset
 python main.py "Greetings, human" --voice dectalk
+# Creates: ./output/djz_speak_Greetings_human_20250702_203046.wav
 
-# Save to file
+# Save to custom location (overrides default output)
 python main.py "Test message" --output robot.wav
+# Creates: robot.wav (in current directory)
 
 # Apply robotic effects
-python main.py "Enhanced voice" --effects --output enhanced.wav
+python main.py "Enhanced voice" --effects
+# Creates: ./output/djz_speak_Enhanced_voice_20250702_203047.wav (with effects)
+
+# Synthesis without audio playback
+python main.py "Silent generation" --no-play
+# Creates: ./output/djz_speak_Silent_generation_20250702_203048.wav (no audio playback)
 ```
+
+### Output Behavior
+
+**Default Behavior**: DJZ-Speak automatically saves all synthesized audio to the `./output/` directory with timestamped filenames while also playing the audio through your speakers.
+
+- **Automatic saving**: Every synthesis creates a WAV file in `./output/`
+- **Smart naming**: Files named like `djz_speak_[text]_[timestamp].wav`
+- **Directory creation**: The `./output/` folder is created automatically if it doesn't exist
+- **Custom output**: Use `--output filename.wav` to save to a specific location instead
+- **Playback control**: Use `--no-play` to disable audio playback (file still saved)
 
 ### Interactive Mode
 
@@ -124,12 +144,46 @@ DJZ-Speak uses YAML configuration files for settings:
 - `config/default_voices.json` - Voice presets
 - `~/.djz-speak/config.yaml` - User overrides
 
+### Key Configuration Options
+
+**Output Settings** (`config/settings.yaml`):
+```yaml
+output:
+  default_format: "wav"
+  quality: "high"
+  normalize_audio: true
+  default_output_directory: "output"  # Directory for automatic file saving
+```
+
+**Synthesis Parameters**:
+```yaml
+synthesis:
+  speed: 140          # Words per minute (80-300)
+  pitch: 35           # Pitch level (0-99)
+  amplitude: 100      # Volume level (0-200)
+  gap: 8              # Word gap in 10ms units
+  voice: "classic_robot"
+```
+
 ### Environment Variables
 
 - `DJZ_SPEAK_SPEED` - Default speech speed
 - `DJZ_SPEAK_PITCH` - Default pitch level
 - `DJZ_SPEAK_VOICE` - Default voice preset
 - `DJZ_SPEAK_ESPEAK_PATH` - Custom eSpeak-NG path
+
+### Customizing Output Directory
+
+To change the default output directory, edit `config/settings.yaml`:
+
+```yaml
+output:
+  default_output_directory: "my_audio_files"  # Relative to project root
+  # Or use absolute path:
+  # default_output_directory: "/home/user/audio"
+```
+
+The directory will be created automatically if it doesn't exist.
 
 ## Building Standalone Executable
 
@@ -168,12 +222,34 @@ DJZ-Speak/
 │   ├── tts_engine.py      # Core TTS engine
 │   ├── voice_manager.py   # Voice presets
 │   ├── audio_processor.py # Audio effects
-│   ├── config_manager.py  # Configuration
-│   └── utils.py           # Utilities
+│   ├── config_manager.py  # Configuration & output management
+│   └── utils.py           # Utilities & filename generation
 ├── config/                # Configuration files
+├── output/                # Default audio output directory (auto-created)
 ├── build/                 # Build scripts
 └── requirements.txt       # Dependencies
 ```
+
+### Output Management System
+
+DJZ-Speak implements automatic file management with the following components:
+
+**ConfigManager** (`src/config_manager.py`):
+- `get_default_output_directory()` - Returns configured output directory path
+- Automatic directory creation with `mkdir(parents=True, exist_ok=True)`
+- Supports both relative and absolute paths
+- Configurable via `config/settings.yaml`
+
+**Filename Generation** (`src/utils.py`):
+- `generate_timestamped_filename()` - Creates unique filenames with timestamps
+- Format: `djz_speak_[text_words]_YYYYMMDD_HHMMSS.wav`
+- Text sanitization for cross-platform compatibility
+- Automatic truncation for long text inputs
+
+**CLI Integration** (`main.py`):
+- Default behavior: Always save to output directory + play audio
+- Override behavior: `--output` parameter bypasses default directory
+- Playback control: `--no-play` disables audio while preserving file saving
 
 ### Voice Synthesis
 
@@ -213,10 +289,68 @@ The audio processor applies several effects for authentic robotic sound:
    - Reduce text length for faster synthesis
    - Check available system memory
 
+5. **Output directory issues**
+   - Check write permissions for the project directory
+   - Verify `default_output_directory` setting in `config/settings.yaml`
+   - Use absolute paths if relative paths cause issues
+   - Check available disk space
+
 ### Debug Mode
 
 ```bash
 python main.py "test" --debug
+```
+
+## Developer Notes
+
+### Key Implementation Details
+
+**Automatic Output Management**:
+- Every synthesis operation creates a file, even without explicit `--output`
+- The `ConfigManager.get_default_output_directory()` method handles path resolution
+- Directory creation is automatic and safe with `mkdir(parents=True, exist_ok=True)`
+- Filename generation uses sanitized text + timestamp for uniqueness
+
+**Backward Compatibility**:
+- Existing `--output` parameter behavior is preserved
+- No breaking changes to CLI interface
+- Configuration files maintain existing structure
+
+**File Naming Strategy**:
+- Pattern: `djz_speak_[sanitized_text]_YYYYMMDD_HHMMSS.wav`
+- Text is limited to first 2 words, max 20 characters
+- Cross-platform filename sanitization removes invalid characters
+- Timestamp ensures uniqueness even for identical text
+
+**Configuration Integration**:
+- New `default_output_directory` setting in `output` section
+- Supports both relative (to project root) and absolute paths
+- Environment variable overrides available for automation
+- User config files can override defaults
+
+### Extending the Output System
+
+To modify output behavior:
+
+1. **Custom filename patterns**: Edit `generate_timestamped_filename()` in `src/utils.py`
+2. **Different default directory**: Modify `config/settings.yaml` or use environment variables
+3. **Additional output formats**: Extend the format handling in `src/tts_engine.py`
+4. **Metadata embedding**: Add file metadata in the audio processor
+
+### Testing Output Functionality
+
+```bash
+# Test default output
+python main.py "Test message"
+ls output/  # Should show djz_speak_Test_message_*.wav
+
+# Test custom output (should not use default directory)
+python main.py "Custom test" --output custom.wav
+ls custom.wav  # Should exist in current directory
+
+# Test directory creation
+rm -rf output/
+python main.py "Directory test"  # Should recreate output/ directory
 ```
 
 ## Development
