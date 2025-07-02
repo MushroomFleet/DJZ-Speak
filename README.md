@@ -1,4 +1,4 @@
-# DJZ-Speak v0: Robotic Text-to-Speech Tool
+# DJZ-Speak rev2: Robotic Text-to-Speech Tool
 
 DJZ-Speak is a high-performance command-line text-to-speech tool that leverages eSpeak-NG's formant synthesis engine to generate authentic machine-like robotic voices. The tool automatically saves all synthesized audio to an organized output directory while providing real-time playback, making it perfect for creating robotic voice content, accessibility applications, and vintage computer sound effects.
 
@@ -16,9 +16,45 @@ DJZ-Speak is a high-performance command-line text-to-speech tool that leverages 
 
 ## Installation
 
-### Prerequisites
+> **⚠️ Important:** DJZ-Speak rev2 includes bug fixes and stability improvements. We **strongly recommend** using a virtual environment to avoid conflicts with your system Python packages.
 
-1. **Python 3.8 or higher**
+### Step 1: Set Up Virtual Environment (Recommended)
+
+**Why use a virtual environment?**
+- Prevents conflicts between DJZ-Speak dependencies and your system Python packages
+- Keeps your system Python environment clean and stable
+- Allows easy removal of DJZ-Speak without affecting other projects
+- Enables reproducible installations across different systems
+
+#### Create and activate virtual environment:
+
+**Windows:**
+```bash
+# Create virtual environment
+python -m venv djz-speak-env
+
+# Activate virtual environment
+djz-speak-env\Scripts\activate
+
+# You should see (djz-speak-env) in your command prompt
+```
+
+**Linux/macOS:**
+```bash
+# Create virtual environment
+python3 -m venv djz-speak-env
+
+# Activate virtual environment
+source djz-speak-env/bin/activate
+
+# You should see (djz-speak-env) in your terminal prompt
+```
+
+> **Note:** You'll need to activate the virtual environment every time you want to use DJZ-Speak. To deactivate, simply run `deactivate`.
+
+### Step 2: Install Prerequisites
+
+1. **Python 3.8 or higher** (should already be available if you created the venv)
 2. **eSpeak-NG text-to-speech engine**
 
 #### Installing eSpeak-NG
@@ -38,19 +74,38 @@ sudo apt install espeak-ng espeak-ng-data
 brew install espeak-ng
 ```
 
-### Install DJZ-Speak
+### Step 3: Install DJZ-Speak
+
+**With virtual environment activated:**
+```bash
+# Clone the repository
+git clone https://github.com/djz-team/djz-speak.git
+cd djz-speak
+
+# Install dependencies (in virtual environment)
+pip install -r requirements.txt
+
+# Optional: Install in development mode
+pip install -e .
+```
+
+### Alternative: System-Wide Installation (Advanced Users)
+
+If you prefer to install system-wide (not recommended for most users):
 
 ```bash
 # Clone the repository
 git clone https://github.com/djz-team/djz-speak.git
 cd djz-speak
 
-# Install dependencies
+# Install dependencies system-wide
 pip install -r requirements.txt
 
 # Optional: Install in development mode
 pip install -e .
 ```
+
+> **Warning:** System-wide installation may cause package conflicts. Use virtual environment installation for better stability.
 
 ## Quick Start
 
@@ -394,4 +449,4 @@ MIT License - see LICENSE file for details.
 
 ---
 
-**DJZ-Speak v0** - Bringing authentic robotic voices to the command line.
+**DJZ-Speak rev2** - Bringing authentic robotic voices to the command line.
