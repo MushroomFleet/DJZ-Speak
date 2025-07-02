@@ -134,14 +134,325 @@
         "mechanical_artifacts": true
       },
       "characteristics": "Higher pitched female robotic voice with synthetic formants"
+    },
+    
+    "terminator": {
+      "name": "Terminator",
+      "description": "Deep, menacing cyborg voice with mechanical undertones",
+      "espeak_voice": "en",
+      "speed": 110,
+      "pitch": 18,
+      "amplitude": 90,
+      "gap": 12,
+      "variant": "m1",
+      "effects": {
+        "frequency_filter": true,
+        "harmonic_enhancement": 1.4,
+        "mechanical_artifacts": true
+      },
+      "characteristics": "Slow, deep, threatening cyborg voice with metallic resonance"
+    },
+    
+    "glados": {
+      "name": "GLaDOS",
+      "description": "Sarcastic AI with distinctive cadence and subtle menace",
+      "espeak_voice": "en",
+      "speed": 135,
+      "pitch": 50,
+      "amplitude": 95,
+      "gap": 8,
+      "variant": "f2",
+      "effects": {
+        "frequency_filter": true,
+        "harmonic_enhancement": 1.2,
+        "mechanical_artifacts": true
+      },
+      "characteristics": "Female AI voice with passive-aggressive delivery and synthetic warmth"
+    },
+    
+    "jarvis": {
+      "name": "JARVIS",
+      "description": "Sophisticated AI assistant with refined British articulation",
+      "espeak_voice": "en",
+      "speed": 155,
+      "pitch": 38,
+      "amplitude": 100,
+      "gap": 4,
+      "variant": "m2",
+      "effects": {
+        "frequency_filter": false,
+        "harmonic_enhancement": 1.0,
+        "mechanical_artifacts": false
+      },
+      "characteristics": "Polished, intelligent AI with crisp pronunciation and helpful tone"
+    },
+    
+    "robocop": {
+      "name": "RoboCop",
+      "description": "Law enforcement android with authoritative metallic voice",
+      "espeak_voice": "en",
+      "speed": 125,
+      "pitch": 30,
+      "amplitude": 105,
+      "gap": 10,
+      "variant": "m3",
+      "effects": {
+        "frequency_filter": true,
+        "harmonic_enhancement": 1.3,
+        "mechanical_artifacts": true
+      },
+      "characteristics": "Authoritative android voice with law enforcement precision"
+    },
+    
+    "wall_e": {
+      "name": "WALL-E",
+      "description": "Cute, expressive robot with warmer mechanical characteristics",
+      "espeak_voice": "en",
+      "speed": 140,
+      "pitch": 60,
+      "amplitude": 110,
+      "gap": 6,
+      "variant": "m4",
+      "effects": {
+        "frequency_filter": true,
+        "harmonic_enhancement": 1.1,
+        "mechanical_artifacts": false
+      },
+      "characteristics": "Endearing robot voice with emotional warmth and curiosity"
+    },
+    
+    "computer_alert": {
+      "name": "Computer Alert",
+      "description": "Emergency system voice with urgent, clear delivery",
+      "espeak_voice": "en",
+      "speed": 170,
+      "pitch": 45,
+      "amplitude": 115,
+      "gap": 3,
+      "variant": "f1",
+      "effects": {
+        "frequency_filter": true,
+        "harmonic_enhancement": 1.0,
+        "mechanical_artifacts": false
+      },
+      "characteristics": "Clear, urgent emergency system voice for alerts and warnings"
+    },
+    
+    "navigation_system": {
+      "name": "Navigation System",
+      "description": "GPS/spacecraft computer voice with precise directions",
+      "espeak_voice": "en",
+      "speed": 150,
+      "pitch": 42,
+      "amplitude": 100,
+      "gap": 5,
+      "variant": "f2",
+      "effects": {
+        "frequency_filter": false,
+        "harmonic_enhancement": 1.0,
+        "mechanical_artifacts": false
+      },
+      "characteristics": "Clear, directional voice optimized for navigation and instructions"
+    },
+    
+    "diagnostics": {
+      "name": "Medical Scanner",
+      "description": "Medical/technical diagnostic voice with clinical precision",
+      "espeak_voice": "en",
+      "speed": 130,
+      "pitch": 40,
+      "amplitude": 95,
+      "gap": 7,
+      "variant": "m2",
+      "effects": {
+        "frequency_filter": true,
+        "harmonic_enhancement": 1.1,
+        "mechanical_artifacts": true
+      },
+      "characteristics": "Clinical, precise voice for medical and technical diagnostics"
+    },
+    
+    "countdown": {
+      "name": "Mission Control",
+      "description": "Mission control countdown voice with dramatic tension",
+      "espeak_voice": "en",
+      "speed": 120,
+      "pitch": 35,
+      "amplitude": 105,
+      "gap": 15,
+      "variant": "m1",
+      "effects": {
+        "frequency_filter": true,
+        "harmonic_enhancement": 1.2,
+        "mechanical_artifacts": false
+      },
+      "characteristics": "Dramatic mission control voice perfect for countdowns and announcements"
+    },
+    
+    "atari_sam": {
+      "name": "Atari SAM",
+      "description": "Classic Atari Software Automatic Mouth synthesis",
+      "espeak_voice": "en",
+      "speed": 140,
+      "pitch": 50,
+      "amplitude": 110,
+      "gap": 8,
+      "variant": "m3",
+      "effects": {
+        "frequency_filter": true,
+        "harmonic_enhancement": 1.6,
+        "mechanical_artifacts": true
+      },
+      "characteristics": "Authentic 1980s computer speech with distinctive Atari character"
+    },
+    
+    "amiga_narrator": {
+      "name": "Amiga Narrator",
+      "description": "Commodore Amiga computer speech synthesis",
+      "espeak_voice": "en",
+      "speed": 135,
+      "pitch": 48,
+      "amplitude": 105,
+      "gap": 9,
+      "variant": "m2",
+      "effects": {
+        "frequency_filter": true,
+        "harmonic_enhancement": 1.4,
+        "mechanical_artifacts": true
+      },
+      "characteristics": "Classic Amiga computer voice with 16-bit synthesis character"
+    },
+    
+    "apple_ii": {
+      "name": "Apple II",
+      "description": "Early Apple computer text-to-speech synthesis",
+      "espeak_voice": "en",
+      "speed": 125,
+      "pitch": 45,
+      "amplitude": 100,
+      "gap": 12,
+      "variant": "m3",
+      "effects": {
+        "frequency_filter": true,
+        "harmonic_enhancement": 1.5,
+        "mechanical_artifacts": true
+      },
+      "characteristics": "Vintage Apple computer voice with authentic 8-bit character"
+    },
+    
+    "robotic_child": {
+      "name": "Robotic Child",
+      "description": "Higher-pitched innocent robot voice with childlike wonder",
+      "espeak_voice": "en",
+      "speed": 160,
+      "pitch": 75,
+      "amplitude": 105,
+      "gap": 5,
+      "variant": "f4",
+      "effects": {
+        "frequency_filter": true,
+        "harmonic_enhancement": 1.1,
+        "mechanical_artifacts": false
+      },
+      "characteristics": "Young, innocent robot voice with curious and friendly tone"
+    },
+    
+    "robotic_elder": {
+      "name": "Robotic Elder",
+      "description": "Older, wise AI with measured, thoughtful speech patterns",
+      "espeak_voice": "en",
+      "speed": 105,
+      "pitch": 28,
+      "amplitude": 90,
+      "gap": 18,
+      "variant": "m1",
+      "effects": {
+        "frequency_filter": true,
+        "harmonic_enhancement": 1.0,
+        "mechanical_artifacts": false
+      },
+      "characteristics": "Wise, contemplative AI voice with slow, deliberate delivery"
+    },
+    
+    "binary_whisper": {
+      "name": "Binary Whisper",
+      "description": "Quiet, mysterious data voice with digital secrecy",
+      "espeak_voice": "en",
+      "speed": 180,
+      "pitch": 55,
+      "amplitude": 70,
+      "gap": 3,
+      "variant": "f3",
+      "effects": {
+        "frequency_filter": true,
+        "harmonic_enhancement": 1.3,
+        "mechanical_artifacts": true
+      },
+      "characteristics": "Whispered digital voice perfect for secrets and data transmission"
+    },
+    
+    "heavy_metal": {
+      "name": "Heavy Metal",
+      "description": "Distorted, aggressive cyborg voice with industrial edge",
+      "espeak_voice": "en",
+      "speed": 145,
+      "pitch": 22,
+      "amplitude": 120,
+      "gap": 6,
+      "variant": "m1",
+      "effects": {
+        "frequency_filter": true,
+        "harmonic_enhancement": 1.8,
+        "mechanical_artifacts": true
+      },
+      "characteristics": "Aggressive, distorted cyborg voice with heavy industrial character"
+    },
+    
+    "british_android": {
+      "name": "British Android",
+      "description": "UK-accented robotic voice with proper pronunciation",
+      "espeak_voice": "en-gb",
+      "speed": 145,
+      "pitch": 40,
+      "amplitude": 100,
+      "gap": 6,
+      "variant": "m3",
+      "effects": {
+        "frequency_filter": true,
+        "harmonic_enhancement": 1.1,
+        "mechanical_artifacts": true
+      },
+      "characteristics": "Polite British android with proper Queen's English pronunciation"
+    },
+    
+    "space_station": {
+      "name": "Space Station",
+      "description": "International space communications with zero-gravity clarity",
+      "espeak_voice": "en",
+      "speed": 140,
+      "pitch": 38,
+      "amplitude": 95,
+      "gap": 8,
+      "variant": "m2",
+      "effects": {
+        "frequency_filter": true,
+        "harmonic_enhancement": 1.0,
+        "mechanical_artifacts": false
+      },
+      "characteristics": "Clear space communications voice designed for long-distance transmission"
     }
   },
   
   "voice_categories": {
-    "retro": ["sbaitso", "vintage_computer", "dectalk"],
-    "cinematic": ["hal9000", "c3po"],
-    "modern": ["modern_ai", "classic_robot"],
-    "experimental": ["robotic_female"]
+    "retro": ["sbaitso", "vintage_computer", "dectalk", "atari_sam", "amiga_narrator", "apple_ii"],
+    "cinematic": ["hal9000", "c3po", "terminator", "glados", "jarvis", "robocop", "wall_e"],
+    "modern": ["modern_ai", "classic_robot", "navigation_system", "space_station"],
+    "technical": ["computer_alert", "diagnostics", "countdown", "binary_whisper"],
+    "character": ["robotic_female", "robotic_child", "robotic_elder", "british_android"],
+    "aggressive": ["heavy_metal", "terminator", "robocop"],
+    "friendly": ["wall_e", "jarvis", "robotic_child"],
+    "emergency": ["computer_alert", "countdown", "navigation_system"],
+    "gaming": ["atari_sam", "amiga_narrator", "apple_ii", "glados"]
   },
   
   "formant_presets": {
@@ -180,6 +491,36 @@
       "low_cutoff": 400,
       "high_cutoff": 2500,
       "resonance": 1.5
+    },
+    "cyber_glitch": {
+      "low_cutoff": 200,
+      "high_cutoff": 4000,
+      "resonance": 1.8
+    },
+    "space_comm": {
+      "low_cutoff": 150,
+      "high_cutoff": 5000,
+      "resonance": 1.1
+    },
+    "underwater_comms": {
+      "low_cutoff": 100,
+      "high_cutoff": 2000,
+      "resonance": 1.6
+    },
+    "damaged_circuits": {
+      "low_cutoff": 250,
+      "high_cutoff": 3500,
+      "resonance": 2.0
+    },
+    "crystal_clear": {
+      "low_cutoff": 50,
+      "high_cutoff": 12000,
+      "resonance": 0.8
+    },
+    "emergency_broadcast": {
+      "low_cutoff": 300,
+      "high_cutoff": 6000,
+      "resonance": 1.3
     }
   }
 }
