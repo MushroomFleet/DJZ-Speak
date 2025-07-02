@@ -108,7 +108,7 @@ class AudioProcessor:
             return False
     
     def play_audio(self, audio_data: Union[bytes, AudioSegment]) -> bool:
-        """Play audio data."""
+        """Play audio data using output directory instead of system temp files."""
         if not PYDUB_AVAILABLE:
             self.logger.error("pydub not available for audio playback")
             return False
@@ -122,8 +122,51 @@ class AudioProcessor:
                 self.logger.error(f"Unsupported audio data type: {type(audio_data)}")
                 return False
             
-            # Play audio
-            play(audio)
+            # Use output directory for temporary playback file to avoid permission issues
+            output_dir = self.config_manager.get_default_output_directory()
+            temp_playback_file = output_dir / "temp_playback.wav"
+            
+            # Ensure output directory exists
+            output_dir.mkdir(parents=True, exist_ok=True)
+            
+            # Save audio to temp file in output directory
+            audio.export(str(temp_playback_file), format="wav")
+            
+            # Play using Windows built-in audio player to avoid pydub temp file issues
+            if os.name == 'nt':  # Windows
+                import subprocess
+                try:
+                    # Use Windows Media Player or built-in audio player
+                    subprocess.run(['start', '/wait', str(temp_playback_file)], 
+                                 shell=True, check=True, timeout=30)
+                except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
+                    # Fallback to powershell audio play
+                    try:
+                        ps_cmd = f'(New-Object Media.SoundPlayer "{temp_playback_file}").PlaySync()'
+                        subprocess.run(['powershell', '-Command', ps_cmd], 
+                                     check=True, timeout=30)
+                    except:
+                        self.logger.warning("Could not play audio using Windows methods")
+                        # Final fallback to original pydub method (may still fail)
+                        play(audio)
+            else:
+                # For non-Windows systems, try alternative methods
+                try:
+                    subprocess.run(['aplay', str(temp_playback_file)], check=True, timeout=30)
+                except:
+                    try:
+                        subprocess.run(['afplay', str(temp_playback_file)], check=True, timeout=30)
+                    except:
+                        # Final fallback to pydub
+                        play(audio)
+            
+            # Clean up temporary playback file
+            try:
+                if temp_playback_file.exists():
+                    temp_playback_file.unlink()
+            except Exception as cleanup_error:
+                self.logger.debug(f"Could not clean up temp playback file: {cleanup_error}")
+            
             return True
             
         except Exception as e:
