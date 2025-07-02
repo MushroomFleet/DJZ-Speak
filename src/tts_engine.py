@@ -166,7 +166,7 @@ class TTSEngine:
     def _synthesize_subprocess(self, text: str, voice_params: Dict[str, Any]) -> Optional[bytes]:
         """Synthesize using eSpeak-NG subprocess."""
         try:
-            # Build command
+            # Build command - ensure we're using stdout to avoid temp files
             cmd = [
                 self.espeak_path,
                 '-v', f"{voice_params.get('voice', 'en')}+{voice_params.get('variant', 'm3')}",
@@ -174,20 +174,29 @@ class TTSEngine:
                 '-p', str(voice_params.get('pitch', 35)),
                 '-a', str(voice_params.get('amplitude', 100)),
                 '-g', str(voice_params.get('gap', 8)),
-                '--stdout'
+                '--stdout'  # Critical: this ensures output goes to stdout, not temp files
             ]
             
-            # Add text
+            # Add text as argument (avoid temp files for text input)
             cmd.append(text)
             
-            # Execute command
+            # Execute command with proper environment
+            env = os.environ.copy()
+            # Ensure no temp directory environment variables interfere
+            env.pop('TMPDIR', None)
+            env.pop('TMP', None)
+            env.pop('TEMP', None)
+            
             result = subprocess.run(
                 cmd,
                 capture_output=True,
                 timeout=30,
-                check=True
+                check=True,
+                env=env,
+                cwd=self.config_manager.project_root  # Set working directory explicitly
             )
             
+            self.logger.debug(f"eSpeak subprocess completed, stdout size: {len(result.stdout)} bytes")
             return result.stdout
             
         except subprocess.TimeoutExpired:
@@ -195,6 +204,8 @@ class TTSEngine:
             return None
         except subprocess.CalledProcessError as e:
             self.logger.error(f"eSpeak-NG process failed: {e}")
+            if e.stderr:
+                self.logger.error(f"eSpeak stderr: {e.stderr.decode('utf-8', errors='ignore')}")
             return None
         except Exception as e:
             self.logger.error(f"Error in subprocess synthesis: {e}")

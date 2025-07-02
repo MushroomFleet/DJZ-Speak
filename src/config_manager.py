@@ -255,8 +255,17 @@ class ConfigManager:
         else:
             output_dir = Path(output_dir)
         
+        # Resolve to absolute path to avoid any ambiguity
+        output_dir = output_dir.resolve()
+        
         # Create directory if it doesn't exist
-        output_dir.mkdir(parents=True, exist_ok=True)
+        try:
+            output_dir.mkdir(parents=True, exist_ok=True)
+            self.logger.debug(f"Default output directory: {output_dir}")
+        except Exception as e:
+            self.logger.error(f"Failed to create output directory {output_dir}: {e}")
+            raise
+        
         return output_dir
     
     def save_user_config(self):

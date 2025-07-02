@@ -275,10 +275,44 @@ def main():
             default_output_dir = config_manager.get_default_output_directory()
             filename = generate_timestamped_filename(text_input, args.format)
             output_path = default_output_dir / filename
+            
+            # Ensure the output directory exists and is writable
+            try:
+                output_path.parent.mkdir(parents=True, exist_ok=True)
+                if not args.quiet:
+                    print(f"Using default output directory: {output_path.parent}")
+            except PermissionError:
+                print(f"Error: Cannot create output directory {output_path.parent}")
+                print("Check permissions or specify a different output path with --output")
+                sys.exit(1)
+        else:
+            # User specified output path - ensure directory exists
+            output_path = Path(output_path)
+            try:
+                output_path.parent.mkdir(parents=True, exist_ok=True)
+            except PermissionError:
+                print(f"Error: Cannot create directory {output_path.parent}")
+                print("Check permissions or choose a different output path")
+                sys.exit(1)
+        
+        # Validate output path is not in temp directory
+        temp_indicators = ['temp', 'tmp', 'AppData\\Local\\Temp', 'AppData/Local/Temp']
+        output_str = str(output_path).lower()
+        if any(indicator in output_str for indicator in temp_indicators):
+            print(f"Warning: Output path appears to be in temp directory: {output_path}")
+            print("This might indicate a configuration issue.")
         
         # Save audio file
-        engine.save_audio(audio_data, str(output_path), args.format)
-        print(f"Audio saved to: {output_path}")
+        success = engine.save_audio(audio_data, str(output_path), args.format)
+        if success:
+            # Verify file was actually created at the expected location
+            if output_path.exists():
+                print(f"Audio saved to: {output_path.resolve()}")
+            else:
+                print(f"Warning: Audio save reported success but file not found at: {output_path}")
+        else:
+            print(f"Error: Failed to save audio to {output_path}")
+            sys.exit(1)
         
         if args.play:
             engine.play_audio(audio_data)
