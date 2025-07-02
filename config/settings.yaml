@@ -1,0 +1,70 @@
+# DJZ-Speak Configuration Settings
+
+# Audio Configuration
+audio:
+  sample_rate: 22050
+  channels: 1
+  bit_depth: 16
+  buffer_size: 1024
+  
+# Default Synthesis Parameters
+synthesis:
+  speed: 140          # Words per minute (80-300)
+  pitch: 35           # Pitch level (0-99)
+  amplitude: 100      # Volume level (0-200)
+  gap: 8              # Word gap in 10ms units
+  voice: "classic_robot"
+  
+# Robotic Effects Configuration
+effects:
+  enable_by_default: false
+  frequency_filter:
+    low_cutoff: 300   # Hz
+    high_cutoff: 3000 # Hz
+  harmonic_enhancement: 1.2
+  mechanical_artifacts: true
+  
+# Output Configuration
+output:
+  default_format: "wav"
+  quality: "high"
+  normalize_audio: true
+  default_output_directory: "output"
+  
+# Performance Settings
+performance:
+  max_text_length: 10000
+  synthesis_timeout: 30  # seconds
+  cache_size: 50         # MB
+  real_time_factor_target: 0.5
+  
+# Interactive Mode Settings
+interactive:
+  prompt: "DJZ> "
+  show_voice_info: true
+  auto_play: true
+  command_history: true
+  
+# Batch Processing
+batch:
+  max_files: 1000
+  output_naming: "sequential"  # sequential, timestamp, hash
+  progress_bar: true
+  
+# Logging Configuration
+logging:
+  level: "INFO"
+  file_logging: false
+  log_file: "djz-speak.log"
+  
+# System Configuration
+system:
+  espeak_path: null      # Auto-detect if null
+  temp_directory: null   # Use system temp if null
+  max_memory_usage: 100  # MB
+  
+# Voice Preset Paths
+paths:
+  voice_presets: "config/default_voices.json"
+  user_presets: "~/.djz-speak/voices.json"
+  cache_directory: "~/.djz-speak/cache"

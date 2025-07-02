@@ -1,0 +1,185 @@
+{
+  "voices": {
+    "classic_robot": {
+      "name": "Classic Robot",
+      "description": "Standard computer robot voice with mechanical characteristics",
+      "espeak_voice": "en",
+      "speed": 140,
+      "pitch": 35,
+      "amplitude": 100,
+      "gap": 8,
+      "variant": "m3",
+      "effects": {
+        "frequency_filter": true,
+        "harmonic_enhancement": 1.1,
+        "mechanical_artifacts": true
+      },
+      "characteristics": "Monotone delivery with synthetic formant resonances"
+    },
+    
+    "dectalk": {
+      "name": "DECtalk Style",
+      "description": "Stephen Hawking-inspired synthesis with deep robotic tone",
+      "espeak_voice": "en",
+      "speed": 120,
+      "pitch": 25,
+      "amplitude": 95,
+      "gap": 10,
+      "variant": "m1",
+      "effects": {
+        "frequency_filter": true,
+        "harmonic_enhancement": 1.3,
+        "mechanical_artifacts": true
+      },
+      "characteristics": "Deep, slow computer voice with distinctive formant synthesis"
+    },
+    
+    "sbaitso": {
+      "name": "Dr. Sbaitso",
+      "description": "1986 retro computer TTS with vintage characteristics",
+      "espeak_voice": "en",
+      "speed": 160,
+      "pitch": 45,
+      "amplitude": 110,
+      "gap": 6,
+      "variant": "m2",
+      "effects": {
+        "frequency_filter": true,
+        "harmonic_enhancement": 1.4,
+        "mechanical_artifacts": true
+      },
+      "characteristics": "Fast, buzzy retro computer voice with quantized prosody"
+    },
+    
+    "hal9000": {
+      "name": "HAL 9000",
+      "description": "Deep, slow computer voice with ominous undertones",
+      "espeak_voice": "en",
+      "speed": 100,
+      "pitch": 20,
+      "amplitude": 85,
+      "gap": 15,
+      "variant": "m1",
+      "effects": {
+        "frequency_filter": true,
+        "harmonic_enhancement": 1.0,
+        "mechanical_artifacts": false
+      },
+      "characteristics": "Slow, deliberate speech with deep resonant tones"
+    },
+    
+    "c3po": {
+      "name": "C-3PO Style",
+      "description": "Protocol droid characteristics with higher pitch",
+      "espeak_voice": "en",
+      "speed": 150,
+      "pitch": 55,
+      "amplitude": 105,
+      "gap": 5,
+      "variant": "m4",
+      "effects": {
+        "frequency_filter": true,
+        "harmonic_enhancement": 1.2,
+        "mechanical_artifacts": true
+      },
+      "characteristics": "Higher pitched robotic voice with precise articulation"
+    },
+    
+    "vintage_computer": {
+      "name": "Vintage Computer",
+      "description": "1980s home computer TTS with authentic retro sound",
+      "espeak_voice": "en",
+      "speed": 130,
+      "pitch": 40,
+      "amplitude": 100,
+      "gap": 12,
+      "variant": "m3",
+      "effects": {
+        "frequency_filter": true,
+        "harmonic_enhancement": 1.5,
+        "mechanical_artifacts": true
+      },
+      "characteristics": "Authentic 8-bit computer voice with digital artifacts"
+    },
+    
+    "modern_ai": {
+      "name": "Modern AI",
+      "description": "Contemporary assistant voice with subtle robotic qualities",
+      "espeak_voice": "en",
+      "speed": 160,
+      "pitch": 42,
+      "amplitude": 95,
+      "gap": 4,
+      "variant": "m2",
+      "effects": {
+        "frequency_filter": false,
+        "harmonic_enhancement": 1.0,
+        "mechanical_artifacts": false
+      },
+      "characteristics": "Clean, modern synthetic voice with minimal artifacts"
+    },
+    
+    "robotic_female": {
+      "name": "Robotic Female",
+      "description": "Female robotic synthesis with mechanical characteristics",
+      "espeak_voice": "en",
+      "speed": 145,
+      "pitch": 65,
+      "amplitude": 100,
+      "gap": 7,
+      "variant": "f3",
+      "effects": {
+        "frequency_filter": true,
+        "harmonic_enhancement": 1.1,
+        "mechanical_artifacts": true
+      },
+      "characteristics": "Higher pitched female robotic voice with synthetic formants"
+    }
+  },
+  
+  "voice_categories": {
+    "retro": ["sbaitso", "vintage_computer", "dectalk"],
+    "cinematic": ["hal9000", "c3po"],
+    "modern": ["modern_ai", "classic_robot"],
+    "experimental": ["robotic_female"]
+  },
+  
+  "formant_presets": {
+    "male_robot": {
+      "f1": 500,
+      "f2": 1500,
+      "f3": 2500,
+      "bandwidth": 80
+    },
+    "female_robot": {
+      "f1": 650,
+      "f2": 1800,
+      "f3": 2800,
+      "bandwidth": 90
+    },
+    "deep_computer": {
+      "f1": 400,
+      "f2": 1200,
+      "f3": 2200,
+      "bandwidth": 60
+    }
+  },
+  
+  "effect_templates": {
+    "vintage_filter": {
+      "low_cutoff": 300,
+      "high_cutoff": 3000,
+      "resonance": 1.2
+    },
+    "modern_clean": {
+      "low_cutoff": 80,
+      "high_cutoff": 8000,
+      "resonance": 1.0
+    },
+    "retro_buzz": {
+      "low_cutoff": 400,
+      "high_cutoff": 2500,
+      "resonance": 1.5
+    }
+  }
+}
